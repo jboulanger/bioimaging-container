@@ -1,3 +1,5 @@
 *~
 old/*
 *.sif
+.ipynb_checkpoints/~
+*.ipynb

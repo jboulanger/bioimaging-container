@@ -14,15 +14,16 @@ From: mambaorg/micromamba
 
     # install the kernel
     micromamba run -p /opt/envs/imaging python -m ipykernel install --name imaging --display-name "Light Microscopy Image Analysis"
-    
+
     # clean up
     micromamba clean -aqy
 
 %environment
+    export TMPDIR=/tmp
     export JUPYTER_PATH=/usr/local/share/jupyter/
 
 %runscript
-    micromamba run -p /opt/envs/lab jupyter lab --no-browser --ip=0.0.0.0
+    micromamba run -p /opt/envs/lab jupyter lab --no-browser --ip=0.0.0.0 --log-level=CRITICAL
 
 #%test   
     #micromamba run -p /opt/envs/imaging python -c "import torch; print('pytorch', torch.__version__);exit(0)"
