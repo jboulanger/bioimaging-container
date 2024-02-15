@@ -13,7 +13,6 @@ Environments
 Container:
 - micromamba.def: container based on micromamba 
 
-
 Build the container from the yml file:
 ```bash
 apptainer build --force bioimaging.sif bioimaging.def
@@ -24,6 +23,8 @@ Run as
 apptainer run --nv  --writable-tmpfs  micromamba.sif
 ```
 
-## micromamba
+Connect to the jupyter kernel.
+
+## References
 
 https://arcdocs.leeds.ac.uk/usage/conda-containers.html

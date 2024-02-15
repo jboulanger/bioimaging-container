@@ -19,19 +19,19 @@ From: mambaorg/micromamba
     export JUPYTER_PATH=/usr/local/share/jupyter/
 
 %runscript
-    micromamba run -p /opt/envs/lab jupyter lab --no-browser 
+    micromamba run -p /opt/envs/lab jupyter lab --no-browser --ip=0.0.0.0
 
-# %test
-#     grep -q NAME=\"Debian\" /etc/os-release
-#     if [ $? -eq 0 ]; then
-#         echo "Container base is Debian as expected."
-#     else
-#         echo "Container base is not Debian."
-#         exit 1
-#     fi
-#     micromamba run -p /opt/envs/imaging python -c "import torch; print('pytorch', torch.__version__);exit(0)"
-#     micromamba run -p /opt/envs/imaging python -c "import cellpose; print('cellpose', cellpose.version);exit(0)"
-#     micromamba run -p /opt/envs/imaging python -c "import tensorflow; print('tensorflow', tensorflow.__version__);exit(0)"
+%test
+    grep -q NAME=\"Debian\" /etc/os-release
+    if [ $? -eq 0 ]; then
+        echo "Container base is Debian as expected."
+    else
+        echo "Container base is not Debian."
+        exit 1
+    fi
+    micromamba run -p /opt/envs/imaging python -c "import torch; print('pytorch', torch.__version__);exit(0)"
+    micromamba run -p /opt/envs/imaging python -c "import cellpose; print('cellpose', cellpose.version);exit(0)"
+    micromamba run -p /opt/envs/imaging python -c "import tensorflow; print('tensorflow', tensorflow.__version__);exit(0)"
 
 %labels
     Author jeromeb@mrc-lmb.cam.ac.uk

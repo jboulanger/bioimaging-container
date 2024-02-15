@@ -3,7 +3,6 @@ channels:
   - pytorch
   - nvidia
   - conda-forge
-  - defaults
 dependencies:
   - python=3.9
   - pip
@@ -19,12 +18,13 @@ dependencies:
   - conda-forge::dask
   - conda-forge::dask-jobqueue
   - openpyxl
-  - conda-forge::statannotations
   - conda-forge::bioformats_jar
   - pip:
+      - statannotations
+      - imaris-ims-file-reader
+      - nd2
       - bm3d
       - cellpose
-      - nd2
       - readlif
       - fsspec
       - aicspylibczi
