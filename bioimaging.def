@@ -1,0 +1,41 @@
+Bootstrap: docker
+From: mambaorg/micromamba
+
+%files
+    environment.yml 
+
+%post    
+    # create a lab environment with only jupyter
+    micromamba create -qy -p /opt/envs/lab
+    micromamba install -qy -p /opt/envs/lab -c conda-forge jupyterlab
+    # create the imaging environment with all python packages 
+    micromamba create -qy -f /environment.yml -p /opt/envs/imaging
+    # install the kernel
+    micromamba run -p /opt/envs/imaging python -m ipykernel install --name imaging --display-name "Light Microscopy Image Analysis"
+    # clean up
+    micromamba clean -aqy
+
+%environment
+    export JUPYTER_PATH=/usr/local/share/jupyter/
+
+%runscript
+    micromamba run -p /opt/envs/lab jupyter lab --no-browser 
+
+# %test
+#     grep -q NAME=\"Debian\" /etc/os-release
+#     if [ $? -eq 0 ]; then
+#         echo "Container base is Debian as expected."
+#     else
+#         echo "Container base is not Debian."
+#         exit 1
+#     fi
+#     micromamba run -p /opt/envs/imaging python -c "import torch; print('pytorch', torch.__version__);exit(0)"
+#     micromamba run -p /opt/envs/imaging python -c "import cellpose; print('cellpose', cellpose.version);exit(0)"
+#     micromamba run -p /opt/envs/imaging python -c "import tensorflow; print('tensorflow', tensorflow.__version__);exit(0)"
+
+%labels
+    Author jeromeb@mrc-lmb.cam.ac.uk
+
+%help 
+    Micromamba based container with jupyter lab and image 
+    processing environment for light microscopy.

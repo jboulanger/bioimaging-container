@@ -1,0 +1,32 @@
+name: imaging
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - conda-forge::ipykernel
+  - pytorch::pytorch
+  - pytorch::torchvision
+  - matplotlib
+  - pandas
+  - conda-forge::scikit-image
+  - conda-forge::scikit-learn
+  - conda-forge::seaborn
+  - numba
+  - conda-forge::dask
+  - conda-forge::dask-jobqueue
+  - openpyxl
+  - conda-forge::statannotations
+  - conda-forge::bioformats_jar
+  - pip:
+      - bm3d
+      - cellpose
+      - nd2
+      - readlif
+      - fsspec
+      - aicspylibczi
+      - aicsimageio[all]
+      - tensorflow
