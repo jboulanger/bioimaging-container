@@ -6,19 +6,20 @@ channels:
 dependencies:
   - python=3.9
   - pip
-  - conda-forge::ipykernel
-  - pytorch::pytorch
-  - pytorch::torchvision
+  - ipykernel
+  - pytorch
+  - torchvision
   - matplotlib
   - pandas
-  - conda-forge::scikit-image
-  - conda-forge::scikit-learn
-  - conda-forge::seaborn
+  - scikit-image
+  - scikit-learn
+  - seaborn
   - numba
-  - conda-forge::dask
-  - conda-forge::dask-jobqueue
+  - dask
+  - dask-jobqueue
   - openpyxl
-  - conda-forge::bioformats_jar
+  - bioformats_jar
+  - ipyfilechooser
   - pip:
       - statannotations
       - imaris-ims-file-reader
@@ -30,3 +31,4 @@ dependencies:
       - aicspylibczi
       - aicsimageio[all]
       - tensorflow
+

@@ -29,8 +29,8 @@ apptainer run --writable-tmpfs --bind /path/to/data:/path/ bioimaging.sif
 Run on a compute node:
 ```bash
 ssh <username@loginnode>
- srun --partition=gpu -c 112 --pty bash -i
- apptainer run  --nv --writable-tmpfs --bind /path/to/data:/path/to/data bioimaging.sif 
+srun -p cpu -c 112 --pty bash -i
+apptainer run  --writable-tmpfs --bind /path/to/data:/path/to/data bioimaging.sif 
 ```
 
 or on a gpu node:
