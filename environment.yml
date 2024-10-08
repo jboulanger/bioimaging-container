@@ -4,31 +4,21 @@ channels:
   - nvidia
   - conda-forge
 dependencies:
-  - python=3.9
+  - python
   - pip
   - ipykernel
   - pytorch
   - torchvision
   - matplotlib
   - pandas
+  - openpyxl
   - scikit-image
   - scikit-learn
   - seaborn
-  - numba
-  - dask
-  - dask-jobqueue
-  - openpyxl
-  - bioformats_jar
   - ipyfilechooser
-  - pip:
-      - statannotations
-      - imaris-ims-file-reader
-      - nd2
-      - bm3d
-      - cellpose
-      - readlif
-      - fsspec
-      - aicspylibczi
-      - aicsimageio[all]
-      - tensorflow
-
+  - cellpose
+  - statannotations 
+  - nd2
+  - cellpose
+  - aicsimageio[all]
+  

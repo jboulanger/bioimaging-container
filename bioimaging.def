@@ -2,32 +2,58 @@ Bootstrap: docker
 From: mambaorg/micromamba
 
 %files
-    environment.yml 
+    environment-test.yml
 
-%post    
+%post         
+    # try to fix lock error
+    micromamba config -qy  set use_lockfiles False
+    # add conda forge channel
+    micromamba config -qy append channels conda-forge    
+    # print the configuration
+    micromamba info    
     # create a lab environment with only jupyter
-    micromamba create -qy -p /opt/envs/lab
-    micromamba install -qy -p /opt/envs/lab -c conda-forge jupyterlab
+    micromamba create -qy -p /opt/conda/envs/lab 
+    micromamba install -qy -p /opt/conda/envs/lab jupyterlab 
 
     # create the imaging environment with all python packages 
-    micromamba create -qy -f /environment.yml -p /opt/envs/imaging
+    micromamba create -qy -p /opt/conda/envs/imaging
+    micromamba install -qy -p /opt/conda/envs/imaging pytorch torchvision  pytorch-cuda=12.4 -c pytorch -c nvidia 
+    micromamba install -qy -p /opt/conda/envs/imaging python seaborn scikit-image scikit-learn 
+    micromamba install -qy -p /opt/conda/envs/imaging cellpose
+    micromamba install -qy -p /opt/conda/envs/imaging tifffile nd2 readlif roifile
+    micromamba install -qy -p /opt/conda/envs/imaging ipyfilechooser ipykernel 
+    micromamba install -qy -p /opt/conda/envs/imaging pandas openpyxl
+    micromamba install -qy -p /opt/conda/envs/imaging pip
+    micromamba run -p /opt/conda/envs/imaging python -m pip install bioio bioio-lif bioio-nd2 bioio-ome-tiff bioio-ome-zarr bioio-tifffile bioio-czi
+
 
     # install the kernel
-    micromamba run -p /opt/envs/imaging python -m ipykernel install --name imaging --display-name "Light Microscopy Image Analysis"
+    micromamba run -p /opt/conda/envs/imaging python -m ipykernel install --name imaging --display-name "Light Microscopy Image Analysis"
 
     # clean up
-    micromamba clean -aqy
+    micromamba clean -aqy      
 
-%environment
+%environment    
+    export MAMBA_ROOT_PREFIX=/opt/conda
     export TMPDIR=/tmp
     export JUPYTER_PATH=/usr/local/share/jupyter/
 
 %runscript
-    micromamba run -p /opt/envs/lab jupyter lab --no-browser --ip=0.0.0.0 --log-level=CRITICAL
+    micromamba run -p /opt/conda/envs/lab jupyter lab --no-browser --ip=0.0.0.0 --log-level=CRITICAL
+
+%test    
+    micromamba run -p /opt/conda/envs/imaging python -c "import seaborn;print('seaborn', seaborn.__version__); exit(0)"
+    micromamba run -p /opt/conda/envs/imaging python -c "import bioio; print('bioio', bioio.__version__);exit(0)"
+    micromamba run -p /opt/conda/envs/imaging python -c "import skimage; print('skimage', skimage.__version__);exit(0)"
+    micromamba run -p /opt/conda/envs/imaging python -c "import pandas; print('pandas', pandas.__version__);exit(0)"
+    micromamba run -p /opt/conda/envs/imaging python -c "import torch; print('pytorch', torch.__version__);exit(0)"
+    micromamba run -p /opt/conda/envs/imaging python -c "import cellpose; print('cellpose', cellpose.version);exit(0)"
+    # micromamba run -p /opt/conda/envs/imaging python imaging python -c "import tensorflow; print('tensorflow', tensorflow.__version__);exit(0)"
+
 
 %labels
     Author jeromeb@mrc-lmb.cam.ac.uk
 
 %help 
     Micromamba based container with jupyter lab and image 
-    processing environment for light microscopy.
+    processing environment for light microscopy data.

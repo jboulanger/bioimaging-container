@@ -42,6 +42,12 @@ apptainer run  --nv --writable-tmpfs --bind /path/to/data:/path/to/data bioimagi
 
 Connect to the jupyter kernel.
 
+## Test
+
+```bash
+
+```
+apptainer run  bioimaging.sif  
 ## References
 
 https://arcdocs.leeds.ac.uk/usage/conda-containers.html
